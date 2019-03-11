@@ -19,6 +19,7 @@ import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.CompressorSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.LiftSubsystem;
+import frc.robot.subsystems.LimeLightSubsystem;
 import frc.robot.subsystems.MultiCameraSubsystem;
 import frc.robot.subsystems.NavXSubsystem;
 
@@ -45,6 +46,8 @@ public class Robot extends TimedRobot {
 
     public static NavXSubsystem NavX;
 
+    public static LimeLightSubsystem LimeLight;
+
     Command m_autonomousCommand;
     SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -69,6 +72,8 @@ public class Robot extends TimedRobot {
         Vision = new MultiCameraSubsystem(RobotMap.DefaultCameraCount, RobotMap.DefaultCameraPort);
 
         NavX = new NavXSubsystem();
+
+        LimeLight = new LimeLightSubsystem();
     }
 
     /**
