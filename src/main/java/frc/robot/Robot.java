@@ -20,6 +20,7 @@ import frc.robot.subsystems.CompressorSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.LiftSubsystem;
 import frc.robot.subsystems.MultiCameraSubsystem;
+import frc.robot.subsystems.NavXSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -41,6 +42,8 @@ public class Robot extends TimedRobot {
     public static ClawSubsystem Claw;
 
     public static MultiCameraSubsystem Vision;
+
+    public static NavXSubsystem NavX;
 
     Command m_autonomousCommand;
     SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -65,6 +68,7 @@ public class Robot extends TimedRobot {
 
         Vision = new MultiCameraSubsystem(RobotMap.DefaultCameraCount, RobotMap.DefaultCameraPort);
 
+        NavX = new NavXSubsystem();
     }
 
     /**

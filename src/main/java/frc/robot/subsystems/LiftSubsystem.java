@@ -33,7 +33,7 @@ public class LiftSubsystem extends Subsystem {
 	// The linear slide anti-gravity value
 	private final double ANTI_GRAV = -.09;
 
-	private final int MAX_HEIGHT_ENCODER = 1100000;
+	private final int MAX_HEIGHT_ENCODER = 110000000;
 
 	@Override
 	public void initDefaultCommand() {
