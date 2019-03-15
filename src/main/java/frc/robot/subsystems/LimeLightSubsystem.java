@@ -17,7 +17,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.LimeLightCommand;
 
 /**
- * Add your docs here.
+ * The limelight subsystem
+ * 
+ * Template from:
+ * https://bitbucket.org/4085technicaldifficulties/build-season.git
  */
 public class LimeLightSubsystem extends Subsystem {
 	// Put methods for controlling this subsystem
@@ -69,6 +72,7 @@ public class LimeLightSubsystem extends Subsystem {
 		tx = table.getEntry("tx");
 		ty = table.getEntry("ty");
 		ta = table.getEntry("ta");
+
 	}
 
 	// Whether camera has any valid targets
