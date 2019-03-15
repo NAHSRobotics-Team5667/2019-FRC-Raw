@@ -24,7 +24,7 @@ public class LimeLightCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.LimeLight.displayValues();
+    Robot.LimeLight.outputTelemetry();
   }
 
   // Make this return true when this Command no longer needs to run execute()

@@ -7,6 +7,8 @@
 
 package frc.robot.subsystems;
 
+import java.util.Arrays;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -21,44 +23,164 @@ public class LimeLightSubsystem extends Subsystem {
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 
-	private NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-	// tv - Whether the limelight has any valid targets (0 or 1)
-	private NetworkTableEntry tv = table.getEntry("tv");
-	// tx - Horizontal Offset From Crosshair To Target (-27 degrees to 27 degrees)
-	private NetworkTableEntry tx = table.getEntry("tx");
-	// ty - Vertical Offset From Crosshair To Target (-20.5 degrees to 20.5 degrees)
-	private NetworkTableEntry ty = table.getEntry("ty");
-	// ta - Target Area (0% of image to 100% of image)
-	private NetworkTableEntry ta = table.getEntry("ta");
-
 	@Override
-	public void initDefaultCommand() {
-		// Set the default command for a subsystem here.
+	protected void initDefaultCommand() {
 		setDefaultCommand(new LimeLightCommand());
 	}
 
-	public double hasTarget() {
-		return tv.getDouble(0.0);
+	public enum LightMode {
+		DEFAULT(0), OFF(1), BLINK(2), ON(3);
+
+		private final int ledMode;
+
+		private LightMode(int ledMode) {
+			this.ledMode = ledMode;
+		}
+
+		public int getLedMode() {
+			return ledMode;
+		}
 	}
 
-	public double getHorizontalOffset() {
-		return tx.getDouble(0.0);
+	public enum StreamMode {
+		STANDARD(0), MAIN(1), SECONDARY(2);
+
+		private final int mode;
+
+		private StreamMode(int mode) {
+			this.mode = mode;
+		}
+
+		public int getMode() {
+			return mode;
+		}
 	}
 
-	public double getVerticalOffset() {
-		return ty.getDouble(0.0);
+	private NetworkTable table;
 
+	// Frequently used entries to store
+	private NetworkTableEntry tx;
+	private NetworkTableEntry ty;
+	private NetworkTableEntry ta;
+
+	public LimeLightSubsystem() {
+		table = NetworkTableInstance.getDefault().getTable("limelight");
+
+		tx = table.getEntry("tx");
+		ty = table.getEntry("ty");
+		ta = table.getEntry("ta");
+	}
+
+	// Whether camera has any valid targets
+	public boolean hasValidTarget() {
+		return (table.getEntry("tv").getDouble(0) == 0) ? false : true;
+	}
+
+	// Horizontal offset from crosshair to target
+	// -27, 27 degrees
+	public double getXAngle() {
+		return tx.getDouble(0);
+	}
+
+	// Vertical offset from crosshair to target
+	// -20.5, 20.5 degrees
+	public double getYAngle() {
+		return ty.getDouble(0);
 	}
 
 	public double getArea() {
-		return ta.getDouble(0.0);
+		return ta.getDouble(0);
 	}
 
-	public void displayValues() {
-		SmartDashboard.putString("Limelight has Target", hasTarget() == 1 ? "Yes" : "No");
-		SmartDashboard.putNumber("Horizontal Offset:", getHorizontalOffset());
-		SmartDashboard.putNumber("Vertical Offset", getVerticalOffset());
-		SmartDashboard.putNumber("Limelight Area:", getArea());
+	// -90 to 0 degrees. Rotation of the object
+	public double getSkew() {
+		return table.getEntry("ts").getDouble(0);
+	}
+
+	// Latency in ms of the pipeline
+	public double getDeltaTime() {
+		return table.getEntry("tl").getDouble(0);
+	}
+
+	// The length of the shortest side of the bounding box in pixels
+	public double getShortLength() {
+		return table.getEntry("tshort").getDouble(0);
+	}
+
+	// The length of the longest side of the bounding box in pixels
+	public double getLongLength() {
+		return table.getEntry("tlong").getDouble(0);
+	}
+
+	// The length of the horizontal side of the box (0-320 pixels)
+	public double getHorizontalLength() {
+		return table.getEntry("thor").getDouble(0);
+	}
+
+	// The length of the vertical side of the box (0-320 pixels)
+	public double getVerticalLength() {
+		return table.getEntry("tvert").getDouble(0);
+	}
+
+	// Returns the index of the current vision pipeline (0... 9)
+	public int getPipeIndex() {
+		return (int) table.getEntry("getpipe").getDouble(0);
+	}
+
+	public double[] getXCorners() {
+		return table.getEntry("tcornx").getDoubleArray(new double[] { 0, 0, 0, 0 });
+	}
+
+	public double[] getYCorners() {
+		return table.getEntry("tcorny").getDoubleArray(new double[] { 0, 0, 0, 0 });
+	}
+
+	// Sets the LEDs to either On, Off, Blinking, or determined by the pipeline
+	public void setLightState(LightMode lMode) {
+		table.getEntry("ledMode").setNumber(lMode.getLedMode());
+	}
+
+	// True for human use, false for vision pipeline. Starts false
+	// Enabling this makes the exposure something you can easily see out of and
+	// disables vision processing
+	public void setDriveMode(boolean b) {
+		if (b) {
+			table.getEntry("camMode").setNumber(1);
+		} else {
+			table.getEntry("camMode").setNumber(0);
+		}
+	}
+
+	// Sets the limelights current pipeline
+	public void setPipeline(int pipeline) {
+		table.getEntry("pipeline").setNumber(pipeline);
+	}
+
+	// Sets the layout of the cameras viewed at 10.40.85.11:5800
+	// Standard is side by side, Main is Limelight big with secondary camera in
+	// bottom right, Secondary is vice versa
+	public void setStreamMode(StreamMode streamMode) {
+		table.getEntry("stream").setNumber(streamMode.getMode());
+	}
+
+	// Enables and disables the camera taking snapshots
+	// While enabled the camera takes two snapshots evey second
+	public void takeSnapshots(boolean b) {
+		if (b) {
+			table.getEntry("snapshot").setNumber(1);
+		} else {
+			table.getEntry("snapshot").setNumber(0);
+		}
+	}
+
+	public void outputTelemetry() {
+		SmartDashboard.putBoolean("HasTarget", hasValidTarget());
+		SmartDashboard.putNumber("Horizontal Offset", getXAngle());
+		SmartDashboard.putNumber("Vertical Offset", getYAngle());
+		SmartDashboard.putNumber("Area", getArea());
+		SmartDashboard.putNumber("Skew", getSkew());
+		SmartDashboard.putString("XCorners", Arrays.toString(getXCorners()));
+		SmartDashboard.putString("YCorners", Arrays.toString(getYCorners()));
 	}
 
 }
