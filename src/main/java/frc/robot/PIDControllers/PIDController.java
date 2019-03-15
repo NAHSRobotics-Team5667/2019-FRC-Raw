@@ -18,7 +18,7 @@ public class PIDController {
 	/**
 	 * PIDController
 	 */
-	public PIDController(String name, double p, double i, double d, double f) {
+	public PIDController(double p, double i, double d, double f) {
 
 		kP = p;
 		kI = i;
@@ -64,16 +64,16 @@ public class PIDController {
 
 	private double tolerance;
 
-	public PIDController(String name, double p) {
-		this(name, p, 0, 0, 0);
+	public PIDController(double p) {
+		this(p, 0, 0, 0);
 	}
 
-	public PIDController(String name, double p, double i) {
-		this(name, p, i, 0, 0);
+	public PIDController(double p, double i) {
+		this(p, i, 0, 0);
 	}
 
-	public PIDController(String name, double p, double i, double d) {
-		this(name, p, i, d, 0);
+	public PIDController(double p, double i, double d) {
+		this(p, i, d, 0);
 	}
 
 	public void reset() {

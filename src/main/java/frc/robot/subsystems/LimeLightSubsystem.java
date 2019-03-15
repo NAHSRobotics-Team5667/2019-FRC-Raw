@@ -66,6 +66,8 @@ public class LimeLightSubsystem extends Subsystem {
 	private NetworkTableEntry ty;
 	private NetworkTableEntry ta;
 
+	public boolean isAutoAligning = false;
+
 	public LimeLightSubsystem() {
 		table = NetworkTableInstance.getDefault().getTable("limelight");
 
@@ -140,8 +142,8 @@ public class LimeLightSubsystem extends Subsystem {
 	}
 
 	// Sets the LEDs to either On, Off, Blinking, or determined by the pipeline
-	public void setLightState(LightMode lMode) {
-		table.getEntry("ledMode").setNumber(lMode.getLedMode());
+	public void setLightState(int mode) {
+		table.getEntry("ledMode").setNumber(mode);
 	}
 
 	// True for human use, false for vision pipeline. Starts false

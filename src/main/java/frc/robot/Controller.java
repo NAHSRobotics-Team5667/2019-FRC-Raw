@@ -8,7 +8,7 @@ public class Controller extends XboxController {
 
     Robot robot; // Reference to the robot
 
-    private final double kGHOST = .1; // Threshold for blocking ghost signals
+    public final double kGHOST = .1; // Threshold for blocking ghost signals
 
     /**
      * Initializes an Xbox controller.
