@@ -32,16 +32,16 @@ public class LimeLightCommand extends Command {
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		distanceController.setOutputRange(-0.5, 0.5);
-		strafingController.setOutputRange(-0.5, 0.5);
-		rotationController.setOutputRange(-0.5, 0.5);
+		distanceController.setOutputRange(-0.3, 0.3);
+		strafingController.setOutputRange(-0.3, 0.3);
+		rotationController.setOutputRange(-0.3, 0.3);
 
 		distanceController.setInputRange(-20.5, 20.5);
 		strafingController.setInputRange(-27, 27);
 		rotationController.setInputRange(-90, 0);
 
-		distanceController.setTolerance(0.5);
-		strafingController.setTolerance(0.5);
+		distanceController.setTolerance(0.3);
+		strafingController.setTolerance(0.3);
 		rotationController.setTolerance(2);
 
 		distanceController.setSetpoint(0);

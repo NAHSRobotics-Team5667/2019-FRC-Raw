@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.factories.MecanumDriveFactory;
+import frc.robot.subsystems.BallSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.CompressorSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
@@ -42,6 +43,8 @@ public class Robot extends TimedRobot {
 
     public static ClawSubsystem Claw;
 
+    public static BallSubsystem BallIntake;
+
     public static MultiCameraSubsystem Vision;
 
     public static NavXSubsystem NavX;
@@ -68,6 +71,8 @@ public class Robot extends TimedRobot {
                 new Encoder(RobotMap.EncoderPortA, RobotMap.EncoderPortB));
 
         Claw = new ClawSubsystem(new Solenoid(RobotMap.ClawSolenoidPort));
+
+        BallIntake = new BallSubsystem(new Solenoid(RobotMap.BallPiston));
 
         Vision = new MultiCameraSubsystem(RobotMap.DefaultCameraCount, RobotMap.DefaultCameraPort);
 

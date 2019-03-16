@@ -42,6 +42,7 @@ public class RobotMap {
 
     // Pistons
     public static int ClawSolenoidPort = 0;
+    public static int BallPiston = 1;
 
     // Slide calibrated values
     // LEVEL 1: 0
