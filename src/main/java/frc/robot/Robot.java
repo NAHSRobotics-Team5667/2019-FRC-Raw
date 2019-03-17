@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PWMTalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -68,7 +69,7 @@ public class Robot extends TimedRobot {
         Compressor = new CompressorSubsystem();
 
         Lift = new LiftSubsystem(new PWMTalonSRX(RobotMap.SlidePort),
-                new Encoder(RobotMap.EncoderPortA, RobotMap.EncoderPortB));
+                new Encoder(RobotMap.EncoderPortA, RobotMap.EncoderPortB), new DigitalInput(RobotMap.LimitSwitchPort));
 
         Claw = new ClawSubsystem(new Solenoid(RobotMap.ClawSolenoidPort));
 

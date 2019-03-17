@@ -81,9 +81,14 @@ public class LiftCommand extends Command {
 				Robot.Lift.setAuto(false);
 			}
 		}
-		SmartDashboard.putNumber("Robot Level", Robot.Lift.getLevel());
+
+		if (Robot.Lift.getSwitchValue() && Robot.Lift.isAuto() && target == 0) {
+			Robot.Lift.setAuto(false);
+			Robot.Lift.stop();
+			Robot.Lift.resetEncoder();
+		}
 		SmartDashboard.putNumber("Target Level", target);
-		SmartDashboard.putNumber("Encoder Rotations", Robot.Lift.getRotations());
+		Robot.Lift.outputTelemetry();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

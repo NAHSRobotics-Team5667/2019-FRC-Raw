@@ -25,6 +25,9 @@ public class ClawCommand extends Command {
 	@Override
 	protected void execute() {
 		if (Robot.m_oi.getController().getAButtonPressed()) {
+			if (Robot.BallIntake.isOpen()) {
+				Robot.BallIntake.closePiston();
+			}
 			Robot.Claw.toggleClaw();
 		}
 	}

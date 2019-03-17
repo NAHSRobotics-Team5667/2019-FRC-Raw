@@ -37,6 +37,8 @@ public class RobotMap {
     public static int l1Port = 2; // Left motor port
     public static int l2Port = 3; // Left 2 motor port
 
+    public static int LimitSwitchPort = 0;
+
     // - Linear slide
     public static int SlidePort = 9; // Linear Slide port
 
@@ -48,7 +50,9 @@ public class RobotMap {
     // LEVEL 1: 0
     // LEVEL 2: 205057
     // LEVEL 3: 336398.0
-    public static int[] Levels = { 0, 569500, 1046000 };
+    // Tournament values: public static int[] Levels = { 0, 569500, 1046000 };
+    // PAST values: public static int[] Levels = { 0, 137500, 265300 };
+    public static int[] Levels = { 0, 137500, 265300 };
 
     // Sticks
     public static int sRightX_Port = 4; // Right stick x

@@ -60,4 +60,8 @@ public class BallSubsystem extends Subsystem {
 		this.currentState = !currentState;
 		this.piston.set(currentState);
 	}
+
+	public boolean isOpen() {
+		return this.piston.get() == OPEN;
+	}
 }
