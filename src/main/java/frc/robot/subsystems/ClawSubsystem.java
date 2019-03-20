@@ -60,4 +60,11 @@ public class ClawSubsystem extends Subsystem {
 		this.currentState = !currentState;
 		this.claw.set(currentState);
 	}
+<<<<<<< HEAD
+=======
+
+	public boolean isOpen() {
+		return this.claw.get() == OPEN;
+	}
+>>>>>>> f0aba9e0c0b80d0dd681e8c8bc763f50e8359e5e
 }

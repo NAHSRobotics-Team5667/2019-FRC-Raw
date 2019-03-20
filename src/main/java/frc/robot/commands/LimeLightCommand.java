@@ -57,7 +57,11 @@ public class LimeLightCommand extends Command {
 		Robot.LimeLight.outputTelemetry();
 
 		if (Robot.m_oi.getController().getYButtonPressed()) {
+<<<<<<< HEAD
 			Robot.LimeLight.isAutoAligning = true;
+=======
+			Robot.LimeLight.isAutoAligning = Robot.LimeLight.hasValidTarget();
+>>>>>>> f0aba9e0c0b80d0dd681e8c8bc763f50e8359e5e
 		}
 
 		Robot.m_oi.getController().getSticks().forEach((sticks, value) -> {

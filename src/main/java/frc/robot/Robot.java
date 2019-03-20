@@ -7,6 +7,10 @@
 
 package frc.robot;
 
+<<<<<<< HEAD
+=======
+import edu.wpi.first.wpilibj.DigitalInput;
+>>>>>>> f0aba9e0c0b80d0dd681e8c8bc763f50e8359e5e
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PWMTalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -68,7 +72,11 @@ public class Robot extends TimedRobot {
         Compressor = new CompressorSubsystem();
 
         Lift = new LiftSubsystem(new PWMTalonSRX(RobotMap.SlidePort),
+<<<<<<< HEAD
                 new Encoder(RobotMap.EncoderPortA, RobotMap.EncoderPortB));
+=======
+                new Encoder(RobotMap.EncoderPortA, RobotMap.EncoderPortB), new DigitalInput(RobotMap.LimitSwitchPort));
+>>>>>>> f0aba9e0c0b80d0dd681e8c8bc763f50e8359e5e
 
         Claw = new ClawSubsystem(new Solenoid(RobotMap.ClawSolenoidPort));
 
@@ -79,8 +87,11 @@ public class Robot extends TimedRobot {
         NavX = new NavXSubsystem();
 
         LimeLight = new LimeLightSubsystem();
+<<<<<<< HEAD
 
         Climb = new ClimbSubsystem(new Solenoid(RobotMap.ClimbPort), RobotMap.UltrasonicPortIn, RobotMap.UltrasonicPortOut, Solenoid);
+=======
+>>>>>>> f0aba9e0c0b80d0dd681e8c8bc763f50e8359e5e
     }
 
     /**

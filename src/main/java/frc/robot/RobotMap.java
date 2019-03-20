@@ -26,10 +26,13 @@ public class RobotMap {
     public static int DefaultCamera_YR = 60; // The Y resolution for the cameras
     public static int DefaultCamera_FPS = 30; // The default FPS for the cameras
 
+<<<<<<< HEAD
     //Ultrasonic
     public static int UltrasonicPortIn = 6
     public static int UltrasonicPortOut = 7
 
+=======
+>>>>>>> f0aba9e0c0b80d0dd681e8c8bc763f50e8359e5e
     // Encoders
     public static int EncoderPortA = 2;
     public static int EncoderPortB = 3;
@@ -41,18 +44,33 @@ public class RobotMap {
     public static int l1Port = 2; // Left motor port
     public static int l2Port = 3; // Left 2 motor port
 
+<<<<<<< HEAD
+=======
+    public static int LimitSwitchPort = 0;
+
+>>>>>>> f0aba9e0c0b80d0dd681e8c8bc763f50e8359e5e
     // - Linear slide
     public static int SlidePort = 9; // Linear Slide port
 
     // Pistons
     public static int ClawSolenoidPort = 0;
     public static int BallPiston = 1;
+<<<<<<< HEAD
     public static int ClimbPort = 2
+=======
+
+>>>>>>> f0aba9e0c0b80d0dd681e8c8bc763f50e8359e5e
     // Slide calibrated values
     // LEVEL 1: 0
     // LEVEL 2: 205057
     // LEVEL 3: 336398.0
+<<<<<<< HEAD
     public static int[] Levels = { 0, 569500, 1046000 };
+=======
+    // Tournament values: public static int[] Levels = { 0, 569500, 1046000 };
+    // PAST values: public static int[] Levels = { 0, 137500, 265300 };
+    public static int[] Levels = { 0, 137500, 265300 };
+>>>>>>> f0aba9e0c0b80d0dd681e8c8bc763f50e8359e5e
 
     // Sticks
     public static int sRightX_Port = 4; // Right stick x
