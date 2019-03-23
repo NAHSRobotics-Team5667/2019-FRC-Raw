@@ -26,6 +26,10 @@ public class RobotMap {
     public static int DefaultCamera_YR = 60; // The Y resolution for the cameras
     public static int DefaultCamera_FPS = 30; // The default FPS for the cameras
 
+    // Ultrasonic
+    public static int UltrasonicPortIn = 6;
+    public static int UltrasonicPortOut = 7;
+
     // Encoders
     public static int EncoderPortA = 2;
     public static int EncoderPortB = 3;
@@ -36,6 +40,8 @@ public class RobotMap {
     public static int r2Port = 1; // Right 2 motor port
     public static int l1Port = 2; // Left motor port
     public static int l2Port = 3; // Left 2 motor port
+    // - Climb motor
+    public static int climbPort = 4; // The climb motor
 
     public static int LimitSwitchPort = 0;
 
@@ -45,11 +51,10 @@ public class RobotMap {
     // Pistons
     public static int ClawSolenoidPort = 0;
     public static int BallPiston = 1;
+    public static int ClimbSolenoid1 = 2;
+    public static int ClimbSolenoid2 = 3;
 
     // Slide calibrated values
-    // LEVEL 1: 0
-    // LEVEL 2: 205057
-    // LEVEL 3: 336398.0
     // Tournament values: public static int[] Levels = { 0, 569500, 1046000 };
     // PAST values: public static int[] Levels = { 0, 137500, 265300 };
     public static int[] Levels = { 0, 137500, 265300 };

@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PWMTalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -18,6 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.factories.MecanumDriveFactory;
 import frc.robot.subsystems.BallSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
+import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.CompressorSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.LiftSubsystem;
@@ -52,6 +54,8 @@ public class Robot extends TimedRobot {
 
     public static LimeLightSubsystem LimeLight;
 
+    public static ClimbSubsystem Climb;
+
     Command m_autonomousCommand;
     SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -80,6 +84,9 @@ public class Robot extends TimedRobot {
         LimeLight = new LimeLightSubsystem();
 
         LimeLight.setLightState(1);
+
+        Climb = new ClimbSubsystem(new Solenoid(RobotMap.ClimbSolenoid1), new Solenoid(RobotMap.ClimbSolenoid2),
+                new Talon(RobotMap.climbPort));
     }
 
     /**

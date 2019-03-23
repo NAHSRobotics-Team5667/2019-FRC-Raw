@@ -7,6 +7,9 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PWMTalonSRX;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PWMTalonSRX;
@@ -26,21 +29,18 @@ public class LiftSubsystem extends Subsystem {
 	private PWMTalonSRX slide;
 	// Slide encoder
 	private Encoder slideEncoder;
-
-	private DigitalInput limitSwitch;
-
 	// Current level index
 	private int currentLevel = 0;
 	// Slide speed
-	private final double slideSpeed = .8;
-	private final double slideSpeedDown = .3;
-
+	private final double slideSpeed = 1;
 	// Are we in auto-lift?
 	private boolean inAuto = false;
 	// The linear slide anti-gravity value
 	private final double ANTI_GRAV = -.09;
 
 	private final int MAX_HEIGHT_ENCODER = 110000000;
+
+	private final DigitalInput limitSwitch;
 
 	@Override
 	public void initDefaultCommand() {
@@ -57,10 +57,10 @@ public class LiftSubsystem extends Subsystem {
 	 */
 	public LiftSubsystem(PWMTalonSRX LiftMotor, Encoder motorEncoder, DigitalInput limitSwitch) {
 		this.slide = LiftMotor;
-		this.limitSwitch = limitSwitch;
 		this.slideEncoder = motorEncoder;
 		this.slideEncoder.reset();
 		this.slideEncoder.setReverseDirection(true);
+		this.limitSwitch = limitSwitch;
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class LiftSubsystem extends Subsystem {
 	 * Move the linear slide down
 	 */
 	public void slideDown() {
-		this.slide.set(-slideSpeedDown);
+		this.slide.set(-slideSpeed);
 	}
 
 	/**

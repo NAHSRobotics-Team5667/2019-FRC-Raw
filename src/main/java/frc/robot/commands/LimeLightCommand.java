@@ -59,7 +59,7 @@ public class LimeLightCommand extends Command {
 			Robot.LimeLight.toggleLight();
 		}
 
-		if (Robot.m_oi.getController().getDPad() == 180 && !Robot.LimeLight.isAutoAligning) {
+		if (Robot.m_oi.getController().getDPad() == 270) {
 			Robot.LimeLight.isAutoAligning = true;
 		}
 
