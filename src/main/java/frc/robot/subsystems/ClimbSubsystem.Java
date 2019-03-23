@@ -103,4 +103,9 @@ public class ClimbSubsystem extends Subsystem {
 		motor.stopMotor();
 	}
 
+	public void outputTelemetry() {
+		SmartDashboard.putBoolean("front", frontCurrentState);
+		SmartDashboard.putBoolean("back", backCurrentState);
+	}
+
 }

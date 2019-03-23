@@ -37,7 +37,7 @@ public class ClimbCommand extends Command {
 		}
 
 		// Open both pistons
-		if (Robot.m_oi.getController().getDPad() == 90) {
+		if (Robot.m_oi.getController().getDPad() == 270) {
 			Robot.Climb.openPistons();
 		}
 
@@ -53,6 +53,8 @@ public class ClimbCommand extends Command {
 		} else {
 			Robot.Climb.stopMotor();
 		}
+
+		Robot.Climb.outputTelemetry();
 
 	}
 
