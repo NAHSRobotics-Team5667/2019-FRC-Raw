@@ -48,40 +48,46 @@ public class LimeLightCommand extends Command {
 		strafingController.setSetpoint(0);
 		rotationController.setSetpoint(0);
 
-		Robot.LimeLight.setLightState(3);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.LimeLight.outputTelemetry();
+		// Robot.LimeLight.outputTelemetry();
 
 		if (Robot.m_oi.getController().getYButtonPressed()) {
-			Robot.LimeLight.isAutoAligning = Robot.LimeLight.hasValidTarget();
+			Robot.LimeLight.toggleLight();
+		}
+
+		if (Robot.m_oi.getController().getDPad() == 180 && !Robot.LimeLight.isAutoAligning) {
+			Robot.LimeLight.isAutoAligning = true;
 		}
 
 		Robot.m_oi.getController().getSticks().forEach((sticks, value) -> {
 			if (value > Robot.m_oi.getController().kGHOST || value < -Robot.m_oi.getController().kGHOST) {
 				Robot.LimeLight.isAutoAligning = false;
+				Robot.LimeLight.turnLightOff();
 			}
 		});
 
 		if (Robot.LimeLight.isAutoAligning) {
-			double[] yCorners = Robot.LimeLight.getYCorners();
+			if (Robot.LimeLight.hasValidTarget()) {
+				double[] yCorners = Robot.LimeLight.getYCorners();
 
-			double leftCorner = yCorners[1];
-			double rightCorner = yCorners[0];
+				double leftCorner = yCorners[1];
+				double rightCorner = yCorners[0];
 
-			double strafingSpeed = -strafingController.calculate(Robot.LimeLight.getXAngle());
-			double distanceSpeed = -distanceController.calculate(Robot.LimeLight.getYAngle());
-			double rotationSpeed = rotationController.calculate(Robot.LimeLight.getSkew());
+				double strafingSpeed = -strafingController.calculate(Robot.LimeLight.getXAngle());
+				double distanceSpeed = -distanceController.calculate(Robot.LimeLight.getYAngle());
+				double rotationSpeed = rotationController.calculate(Robot.LimeLight.getSkew());
 
-			if (leftCorner < rightCorner) {
-				rotationSpeed *= -1;
+				if (leftCorner < rightCorner) {
+					rotationSpeed *= -1;
+				}
+
+				// Strafe to the indicated position
+				Robot.DriveTrain.drive(strafingSpeed, distanceSpeed, rotationSpeed);
 			}
-
-			// Strafe to the indicated position
-			Robot.DriveTrain.drive(strafingSpeed, distanceSpeed, rotationSpeed);
 		}
 
 	}

@@ -77,9 +77,9 @@ public class Robot extends TimedRobot {
 
         Vision = new MultiCameraSubsystem(RobotMap.DefaultCameraCount, RobotMap.DefaultCameraPort);
 
-        NavX = new NavXSubsystem();
-
         LimeLight = new LimeLightSubsystem();
+
+        LimeLight.setLightState(1);
     }
 
     /**

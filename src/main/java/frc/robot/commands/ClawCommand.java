@@ -30,6 +30,8 @@ public class ClawCommand extends Command {
 			}
 			Robot.Claw.toggleClaw();
 		}
+
+		Robot.Claw.outputTelemetry();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

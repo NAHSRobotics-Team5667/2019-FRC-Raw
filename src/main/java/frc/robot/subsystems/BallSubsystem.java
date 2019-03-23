@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.BallCommand;
 
 /**
@@ -63,5 +64,9 @@ public class BallSubsystem extends Subsystem {
 
 	public boolean isOpen() {
 		return this.piston.get() == OPEN;
+	}
+
+	public void outputTelemetry() {
+		SmartDashboard.putBoolean("b", currentState);
 	}
 }

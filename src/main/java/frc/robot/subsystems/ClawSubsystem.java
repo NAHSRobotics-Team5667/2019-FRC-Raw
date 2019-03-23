@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ClawCommand;
 
 /**
@@ -63,5 +64,9 @@ public class ClawSubsystem extends Subsystem {
 
 	public boolean isOpen() {
 		return this.claw.get() == OPEN;
+	}
+
+	public void outputTelemetry() {
+		SmartDashboard.putBoolean("c", currentState);
 	}
 }

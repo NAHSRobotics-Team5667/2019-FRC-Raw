@@ -45,6 +45,10 @@ public class LimeLightSubsystem extends Subsystem {
 		}
 	}
 
+	private int currentState = 1;
+	private final int LIGHT_ON = 3;
+	private final int LIGHT_OFF = 1;
+
 	public enum StreamMode {
 		STANDARD(0), MAIN(1), SECONDARY(2);
 
@@ -75,6 +79,7 @@ public class LimeLightSubsystem extends Subsystem {
 		ty = table.getEntry("ty");
 		ta = table.getEntry("ta");
 
+		setLightState(LIGHT_OFF);
 	}
 
 	// Whether camera has any valid targets
@@ -177,6 +182,19 @@ public class LimeLightSubsystem extends Subsystem {
 		} else {
 			table.getEntry("snapshot").setNumber(0);
 		}
+	}
+
+	public void toggleLight() {
+		currentState = (currentState == LIGHT_ON) ? LIGHT_OFF : LIGHT_ON;
+		setLightState(currentState);
+	}
+
+	public void turnLightOff() {
+		setLightState(LIGHT_OFF);
+	}
+
+	public void turnLightOn() {
+		setLightState(LIGHT_ON);
 	}
 
 	public void outputTelemetry() {

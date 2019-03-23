@@ -31,6 +31,8 @@ public class BallCommand extends Command {
 			}
 			Robot.BallIntake.togglePiston();
 		}
+
+		Robot.BallIntake.outputTelemetry();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
