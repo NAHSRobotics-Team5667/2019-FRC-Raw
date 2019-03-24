@@ -48,6 +48,10 @@ public class LimeLightCommand extends Command {
 		strafingController.setSetpoint(0);
 		rotationController.setSetpoint(0);
 
+		distanceController.outputTelemetry();
+		strafingController.outputTelemetry();
+		rotationController.outputTelemetry();
+
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -89,6 +93,10 @@ public class LimeLightCommand extends Command {
 				Robot.DriveTrain.drive(strafingSpeed, distanceSpeed, rotationSpeed);
 			}
 		}
+
+		distanceController.readTelemetry();
+		strafingController.readTelemetry();
+		rotationController.readTelemetry();
 
 	}
 

@@ -9,6 +9,8 @@ package frc.robot.PIDControllers;
 
 import java.util.ArrayList;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * PIDController Template class from:
  * https://bitbucket.org/4085technicaldifficulties/build-season/src/d19340e662db82479fab48541813011542d01380/BuildSeasonRobot/src/main/java/frc/sensor/PIDControl.java?at=master&fileviewer=file-view-default
@@ -255,6 +257,18 @@ public class PIDController {
 
 	private static double clamp(double n, double min, double max) {
 		return Math.max(min, Math.min(n, max));
+	}
+
+	public void outputTelemetry() {
+		SmartDashboard.putNumber("P", getP());
+		SmartDashboard.putNumber("I", getI());
+		SmartDashboard.putNumber("D", getD());
+	}
+
+	public void readTelemetry() {
+		setP(SmartDashboard.getNumber("P", getP()));
+		setI(SmartDashboard.getNumber("I", getI()));
+		setD(SmartDashboard.getNumber("D", getD()));
 	}
 
 }
