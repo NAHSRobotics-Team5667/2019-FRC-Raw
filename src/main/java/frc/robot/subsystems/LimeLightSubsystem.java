@@ -14,6 +14,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.RobotMap.LightMode.StreamMode;
 import frc.robot.commands.LimeLightCommand;
 
 /**
@@ -31,37 +32,9 @@ public class LimeLightSubsystem extends Subsystem {
 		setDefaultCommand(new LimeLightCommand());
 	}
 
-	public enum LightMode {
-		DEFAULT(0), OFF(1), BLINK(2), ON(3);
-
-		private final int ledMode;
-
-		private LightMode(int ledMode) {
-			this.ledMode = ledMode;
-		}
-
-		public int getLedMode() {
-			return ledMode;
-		}
-	}
-
 	private int currentState = 1;
 	private final int LIGHT_ON = 3;
 	private final int LIGHT_OFF = 1;
-
-	public enum StreamMode {
-		STANDARD(0), MAIN(1), SECONDARY(2);
-
-		private final int mode;
-
-		private StreamMode(int mode) {
-			this.mode = mode;
-		}
-
-		public int getMode() {
-			return mode;
-		}
-	}
 
 	private NetworkTable table;
 

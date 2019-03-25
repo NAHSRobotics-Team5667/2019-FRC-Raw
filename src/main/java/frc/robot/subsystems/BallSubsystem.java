@@ -13,16 +13,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.BallCommand;
 
 /**
- * Add your docs here.
+ * The ball subsystem
  */
 public class BallSubsystem extends Subsystem {
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
-
-	Solenoid piston;
-
+	// The cone piston
+	private Solenoid piston;
+	// Piston values
 	private final boolean OPEN = true;
 	private final boolean CLOSED = !OPEN;
+	// The current state for auto togglings
 	private boolean currentState = CLOSED;
 
 	@Override
@@ -62,11 +63,17 @@ public class BallSubsystem extends Subsystem {
 		this.piston.set(currentState);
 	}
 
+	/**
+	 * Check if the piston is currently opened
+	 */
 	public boolean isOpen() {
 		return this.piston.get() == OPEN;
 	}
 
+	/**
+	 * Allow the driver to see if the piston is open graphically
+	 */
 	public void outputTelemetry() {
-		SmartDashboard.putBoolean("b", currentState);
+		SmartDashboard.putBoolean("b", isOpen());
 	}
 }

@@ -50,6 +50,12 @@ public class MultiCameraSubsystem extends Subsystem {
 
     }
 
+    /**
+     * A Camera subsystem capable of controlling 2 cameras
+     * 
+     * @param _cameraCount - The amount of cameras desired (1-2)
+     * @param _port        - The desired starting port for camera 1
+     */
     public MultiCameraSubsystem(int _cameraCount, int _port) {
         this(_cameraCount, _port, RobotMap.DefaultCamera_XR, RobotMap.DefaultCamera_XR, RobotMap.DefaultCamera_FPS);
     }

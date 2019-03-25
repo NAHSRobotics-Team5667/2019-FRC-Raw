@@ -16,12 +16,11 @@ import frc.robot.RobotMap;
 import frc.robot.commands.LiftCommand;
 
 /**
- * Add your docs here.
+ * The lift subsystem
  */
 public class LiftSubsystem extends Subsystem {
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
-	// 1451293.0
 	// Slide MotorControllers
 	private PWMTalonSRX slide;
 	// Slide encoder
@@ -146,18 +145,32 @@ public class LiftSubsystem extends Subsystem {
 		this.slide.set(ANTI_GRAV);
 	}
 
+	/**
+	 * Get the max height
+	 * 
+	 * @return the max height
+	 */
 	public int getMaxHeight() {
 		return MAX_HEIGHT_ENCODER;
 	}
 
+	/**
+	 * Reset the encoder value
+	 */
 	public void resetEncoder() {
 		this.slideEncoder.reset();
 	}
 
+	/**
+	 * The switch value
+	 */
 	public boolean getSwitchValue() {
 		return this.limitSwitch.get();
 	}
 
+	/**
+	 * Output information to the driver graphically
+	 */
 	public void outputTelemetry() {
 		SmartDashboard.putNumber("Robot Level", getLevel());
 		SmartDashboard.putNumber("Encoder Rotations", getRotations());

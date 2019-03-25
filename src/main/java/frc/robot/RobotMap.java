@@ -83,4 +83,33 @@ public class RobotMap {
     public static int button_menu_Port = 8; // Menu Button
     public static int button_Start_Port = 7; // Start button
 
+    // Limelight
+    public enum LightMode {
+        DEFAULT(0), OFF(1), BLINK(2), ON(3);
+
+        private final int ledMode;
+
+        private LightMode(int ledMode) {
+            this.ledMode = ledMode;
+        }
+
+        public int getLedMode() {
+            return ledMode;
+        }
+
+        public enum StreamMode {
+            STANDARD(0), MAIN(1), SECONDARY(2);
+
+            private final int mode;
+
+            private StreamMode(int mode) {
+                this.mode = mode;
+            }
+
+            public int getMode() {
+                return mode;
+            }
+        }
+    }
+
 }

@@ -26,6 +26,7 @@ public class CompressorSubsystem extends Subsystem {
 	}
 
 	public CompressorSubsystem() {
+		// Allow the compressor to only be on when under 120 PSI
 		this.compressor = new Compressor(); // Default port of 0
 		this.compressor.setClosedLoopControl(true);
 

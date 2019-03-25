@@ -18,11 +18,12 @@ import frc.robot.commands.ClawCommand;
 public class ClawSubsystem extends Subsystem {
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
-
-	Solenoid claw;
-
+	// The piston solenoid
+	private Solenoid claw;
+	// Piston values
 	private final boolean OPEN = true;
 	private final boolean CLOSED = !OPEN;
+	// The current state for automatic toggling
 	private boolean currentState = CLOSED;
 
 	@Override
@@ -62,11 +63,17 @@ public class ClawSubsystem extends Subsystem {
 		this.claw.set(currentState);
 	}
 
+	/**
+	 * Check if the piston is currently opened
+	 */
 	public boolean isOpen() {
 		return this.claw.get() == OPEN;
 	}
 
+	/**
+	 * Allow the driver to check if the piston is currently opened
+	 */
 	public void outputTelemetry() {
-		SmartDashboard.putBoolean("c", currentState);
+		SmartDashboard.putBoolean("c", isOpen());
 	}
 }
