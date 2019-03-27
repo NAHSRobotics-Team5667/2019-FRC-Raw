@@ -23,6 +23,7 @@ public class LimeLightCommand extends Command {
 	PIDController distanceController = new PIDController(0.1);
 	PIDController strafingController = new PIDController(0.1, 0.001);
 	PIDController rotationController = new PIDController(0.009);
+	private boolean manualLight = false;
 
 	public LimeLightCommand() {
 		// Use requires() here to declare subsystem dependencies
@@ -48,10 +49,6 @@ public class LimeLightCommand extends Command {
 		strafingController.setSetpoint(0);
 		rotationController.setSetpoint(0);
 
-		distanceController.outputTelemetry();
-		strafingController.outputTelemetry();
-		rotationController.outputTelemetry();
-
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -61,6 +58,7 @@ public class LimeLightCommand extends Command {
 
 		if (Robot.m_oi.getController().getYButtonPressed()) {
 			Robot.LimeLight.toggleLight();
+			manualLight = !manualLight;
 		}
 
 		if (Robot.m_oi.getController().getDPad() == 90) {
@@ -70,7 +68,9 @@ public class LimeLightCommand extends Command {
 		Robot.m_oi.getController().getSticks().forEach((sticks, value) -> {
 			if (value > Robot.m_oi.getController().kGHOST || value < -Robot.m_oi.getController().kGHOST) {
 				Robot.LimeLight.isAutoAligning = false;
-				Robot.LimeLight.turnLightOff();
+				if (!manualLight) {
+					Robot.LimeLight.turnLightOff();
+				}
 			}
 		});
 
@@ -93,10 +93,6 @@ public class LimeLightCommand extends Command {
 				Robot.DriveTrain.drive(strafingSpeed, distanceSpeed, rotationSpeed);
 			}
 		}
-
-		distanceController.readTelemetry();
-		strafingController.readTelemetry();
-		rotationController.readTelemetry();
 
 	}
 

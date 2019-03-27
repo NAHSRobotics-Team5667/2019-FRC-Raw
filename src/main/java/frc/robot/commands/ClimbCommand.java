@@ -44,15 +44,14 @@ public class ClimbCommand extends Command {
 		// Drive the robot towards the hab (climb)
 		if (Robot.m_oi.getController().getDPad() == 0) {
 			Robot.Climb.driveMotorFoward();
-		} else {
-			Robot.Climb.stopMotor();
-		}
-		// Drive the motor away from the hab (stop climb)
-		if (Robot.m_oi.getController().getDPad() == 180) {
+
+		} else if (Robot.m_oi.getController().getDPad() == 180) {
 			Robot.Climb.driveMotorBackward();
 		} else {
 			Robot.Climb.stopMotor();
 		}
+
+		// Drive the motor away from the hab (stop climb)
 
 		Robot.Climb.outputTelemetry();
 
