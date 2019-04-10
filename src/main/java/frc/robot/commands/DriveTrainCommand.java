@@ -32,7 +32,9 @@ public class DriveTrainCommand extends Command {
         // and drive based on those values
 
         Map<String, Double> sticks = Robot.m_oi.getController().getSticks();
-        Robot.DriveTrain.drive(sticks.get("LSX"), sticks.get("LSY"), sticks.get("RSX"));
+        if (!Robot.LimeLight.isAutoAligning) {
+            Robot.DriveTrain.drive(sticks.get("LSX"), sticks.get("LSY"), sticks.get("RSX"));
+        }
 
     }
 

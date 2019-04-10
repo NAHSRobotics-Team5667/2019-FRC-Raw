@@ -51,8 +51,7 @@ public class LimeLightSubsystem extends Subsystem {
 		tx = table.getEntry("tx");
 		ty = table.getEntry("ty");
 		ta = table.getEntry("ta");
-
-		setLightState(LIGHT_OFF);
+		setLightState(LIGHT_ON);
 	}
 
 	// Whether camera has any valid targets

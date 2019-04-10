@@ -82,11 +82,6 @@ public class LiftCommand extends Command {
 			}
 		}
 
-		if (Robot.Lift.getSwitchValue() && Robot.Lift.isAuto() && target == 0) {
-			Robot.Lift.setAuto(false);
-			Robot.Lift.stop();
-			Robot.Lift.resetEncoder();
-		}
 		SmartDashboard.putNumber("Target Level", target);
 		Robot.Lift.outputTelemetry();
 	}

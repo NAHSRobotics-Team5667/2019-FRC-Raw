@@ -28,12 +28,12 @@ public class ClimbCommand extends Command {
 	protected void execute() {
 		// Toggle the front pistons
 		if (Robot.m_oi.getController().getStartButtonPressed()) {
-			Robot.Climb.toggleFront();
+			Robot.Climb.toggleBack();
 		}
 
 		// Toggle the back pistons
 		if (Robot.m_oi.getController().getBackButtonPressed()) {
-			Robot.Climb.toggleBack();
+			Robot.Climb.toggleFront();
 		}
 
 		// Open both pistons

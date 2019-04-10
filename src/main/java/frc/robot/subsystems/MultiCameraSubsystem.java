@@ -46,6 +46,9 @@ public class MultiCameraSubsystem extends Subsystem {
             camera2 = CameraServer.getInstance().startAutomaticCapture(_port == 0 ? 1 : 0);
             camera1.setResolution(xres, yres);
             camera2.setResolution(xres, yres);
+
+            camera1.setFPS(fps);
+            camera2.setFPS(fps);
         }
 
     }

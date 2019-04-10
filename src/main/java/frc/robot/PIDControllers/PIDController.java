@@ -17,18 +17,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * 
  */
 public class PIDController {
-	/**
-	 * PIDController
-	 */
-	public PIDController(double p, double i, double d, double f) {
-
-		kP = p;
-		kI = i;
-		kD = d;
-		kF = f;
-
-		reset();
-	}
 
 	// Tuning Variables
 	private double kP;
@@ -66,16 +54,30 @@ public class PIDController {
 
 	private double tolerance;
 
-	public PIDController(double p) {
-		this(p, 0, 0, 0);
+	private String name;
+
+	/**
+	 * PIDController
+	 */
+	public PIDController(String name, double p, double i, double d, double f) {
+		this.name = name;
+		kP = p;
+		kI = i;
+		kD = d;
+		kF = f;
+		reset();
 	}
 
-	public PIDController(double p, double i) {
-		this(p, i, 0, 0);
+	public PIDController(String name, double p) {
+		this(name, p, 0, 0, 0);
 	}
 
-	public PIDController(double p, double i, double d) {
-		this(p, i, d, 0);
+	public PIDController(String name, double p, double i) {
+		this(name, p, i, 0, 0);
+	}
+
+	public PIDController(String name, double p, double i, double d) {
+		this(name, p, i, d, 0);
 	}
 
 	public void reset() {
@@ -260,15 +262,15 @@ public class PIDController {
 	}
 
 	public void outputTelemetry() {
-		SmartDashboard.putNumber("P", getP());
-		SmartDashboard.putNumber("I", getI());
-		SmartDashboard.putNumber("D", getD());
+		SmartDashboard.putNumber(name + "_P", getP());
+		SmartDashboard.putNumber(name + "_I", getI());
+		SmartDashboard.putNumber(name + "_D", getD());
 	}
 
 	public void readTelemetry() {
-		setP(SmartDashboard.getNumber("P", getP()));
-		setI(SmartDashboard.getNumber("I", getI()));
-		setD(SmartDashboard.getNumber("D", getD()));
+		setP(SmartDashboard.getNumber(name + "_P", getP()));
+		setI(SmartDashboard.getNumber(name + "_I", getI()));
+		setD(SmartDashboard.getNumber(name + "_D", getD()));
 	}
 
 }

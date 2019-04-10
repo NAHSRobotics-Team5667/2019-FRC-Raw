@@ -29,6 +29,7 @@ public class LiftSubsystem extends Subsystem {
 	private int currentLevel = 0;
 	// Slide speed
 	private final double slideSpeed = 1;
+	private final double slideSpeedDown = -.7;
 	// Are we in auto-lift?
 	private boolean inAuto = false;
 	// The linear slide anti-gravity value
@@ -70,7 +71,7 @@ public class LiftSubsystem extends Subsystem {
 	 * Move the linear slide down
 	 */
 	public void slideDown() {
-		this.slide.set(-slideSpeed);
+		this.slide.set(slideSpeedDown);
 	}
 
 	/**

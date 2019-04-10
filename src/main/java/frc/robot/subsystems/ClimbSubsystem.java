@@ -31,7 +31,7 @@ public class ClimbSubsystem extends Subsystem {
 	private boolean frontCurrentState = RETRACTED;
 	private boolean backCurrentState = RETRACTED;
 	// The motor speed
-	private final double speed = 1;
+	private final double speed = .5;
 
 	@Override
 	public void initDefaultCommand() {

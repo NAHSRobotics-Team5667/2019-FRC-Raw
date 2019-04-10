@@ -24,15 +24,15 @@ public class RobotMap {
     public static int DefaultCameraPort = 0; // The default camera port for camera 1
     public static int DefaultCamera_XR = 120; // The X resolution for the cameras
     public static int DefaultCamera_YR = 60; // The Y resolution for the cameras
-    public static int DefaultCamera_FPS = 30; // The default FPS for the cameras
+    public static int DefaultCamera_FPS = 18; // The default FPS for the cameras
 
     // Ultrasonic
     public static int UltrasonicPortIn = 6;
     public static int UltrasonicPortOut = 7;
 
     // Encoders
-    public static int EncoderPortA = 2;
-    public static int EncoderPortB = 3;
+    public static int EncoderPortA = 8;
+    public static int EncoderPortB = 9;
 
     // Motors
     // - Drive Train
@@ -55,9 +55,10 @@ public class RobotMap {
     public static int ClimbSolenoid2 = 3;
 
     // Slide calibrated values
-    // Tournament values: public static int[] Levels = { 0, 569500, 1046000 };
+    // Tournament values:
+    public static int[] Levels = { 0, 400000, 600000 };
     // PAST values: public static int[] Levels = { 0, 137500, 265300 };
-    public static int[] Levels = { 0, 137500, 265300 };
+    // public static int[] Levels = { 0, 137500, 265300 };
 
     // Sticks
     public static int sRightX_Port = 4; // Right stick x

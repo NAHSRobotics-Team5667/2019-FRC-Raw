@@ -83,8 +83,6 @@ public class Robot extends TimedRobot {
 
         LimeLight = new LimeLightSubsystem();
 
-        LimeLight.setLightState(1);
-
         Climb = new ClimbSubsystem(new Solenoid(RobotMap.ClimbSolenoid1), new Solenoid(RobotMap.ClimbSolenoid2),
                 new Talon(RobotMap.climbPort));
     }
