@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PWMTalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -80,11 +81,9 @@ public class Robot extends TimedRobot {
         BallIntake = new BallSubsystem(new Solenoid(RobotMap.BallPiston));
 
         Vision = new MultiCameraSubsystem(RobotMap.DefaultCameraCount, RobotMap.DefaultCameraPort);
-
         LimeLight = new LimeLightSubsystem();
 
-        Climb = new ClimbSubsystem(new Solenoid(RobotMap.ClimbSolenoid1), new Solenoid(RobotMap.ClimbSolenoid2),
-                new Talon(RobotMap.climbPort));
+        Climb = new ClimbSubsystem(new DoubleSolenoid(2, 3), new DoubleSolenoid(6, 4), new Talon(RobotMap.climbPort));
     }
 
     /**

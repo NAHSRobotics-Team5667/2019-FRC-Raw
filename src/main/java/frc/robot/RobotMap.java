@@ -41,12 +41,12 @@ public class RobotMap {
     public static int l1Port = 2; // Left motor port
     public static int l2Port = 3; // Left 2 motor port
     // - Climb motor
-    public static int climbPort = 6; // The climb motor
+    public static int climbPort = 9; // The climb motor
 
     public static int LimitSwitchPort = 0;
 
     // - Linear slide
-    public static int SlidePort = 9; // Linear Slide port
+    public static int SlidePort = 6; // Linear Slide port
 
     // Pistons
     public static int ClawSolenoidPort = 0;

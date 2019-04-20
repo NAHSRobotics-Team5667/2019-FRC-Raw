@@ -7,8 +7,10 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ClimbCommand;
@@ -20,8 +22,8 @@ public class ClimbSubsystem extends Subsystem {
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 	// The pistons for the climb
-	private Solenoid frontPiston;
-	private Solenoid backPiston;
+	private DoubleSolenoid clawSidePiston;
+	private DoubleSolenoid panelSidePiston;
 	// The climb motor
 	private Talon motor;
 	// Piston values
@@ -40,13 +42,13 @@ public class ClimbSubsystem extends Subsystem {
 	}
 
 	/**
-	 * @param frontPiston - The front piston
-	 * @param backPiston  - The back piston
-	 * @param motor       - The motor for the climbs
+	 * @param clawSidePiston  - The front piston
+	 * @param panelSidePiston - The back piston
+	 * @param motor           - The motor for the climbs
 	 */
-	public ClimbSubsystem(Solenoid frontPiston, Solenoid backPiston, Talon motor) {
-		this.frontPiston = frontPiston;
-		this.backPiston = backPiston;
+	public ClimbSubsystem(DoubleSolenoid clawSidePiston, DoubleSolenoid panelSidePiston, Talon motor) {
+		this.clawSidePiston = clawSidePiston;
+		this.panelSidePiston = panelSidePiston;
 		this.motor = motor;
 	}
 
@@ -54,8 +56,8 @@ public class ClimbSubsystem extends Subsystem {
 	 * Close the pistons
 	 */
 	public void closePistons() {
-		this.frontPiston.set(RETRACTED);
-		this.backPiston.set(RETRACTED);
+		this.clawSidePiston.set(Value.kOff);
+		this.panelSidePiston.set(Value.kOff);
 
 		frontCurrentState = RETRACTED;
 		backCurrentState = RETRACTED;
@@ -65,8 +67,8 @@ public class ClimbSubsystem extends Subsystem {
 	 * Open the pistons
 	 */
 	public void openPistons() {
-		this.frontPiston.set(EXTENDED);
-		this.backPiston.set(EXTENDED);
+		this.clawSidePiston.set(Value.kForward);
+		this.panelSidePiston.set(Value.kForward);
 
 		frontCurrentState = EXTENDED;
 		backCurrentState = EXTENDED;
@@ -76,7 +78,7 @@ public class ClimbSubsystem extends Subsystem {
 	 * Close only the front pistons
 	 */
 	public void closeFront() {
-		this.frontPiston.set(RETRACTED);
+		this.clawSidePiston.set(Value.kReverse);
 		frontCurrentState = RETRACTED;
 	}
 
@@ -84,7 +86,7 @@ public class ClimbSubsystem extends Subsystem {
 	 * Close only the back pistons
 	 */
 	public void closeBack() {
-		this.backPiston.set(RETRACTED);
+		this.panelSidePiston.set(Value.kReverse);
 		backCurrentState = RETRACTED;
 	}
 
@@ -92,7 +94,7 @@ public class ClimbSubsystem extends Subsystem {
 	 * Open only the front pistons
 	 */
 	public void openFront() {
-		this.frontPiston.set(EXTENDED);
+		this.clawSidePiston.set(Value.kForward);
 		frontCurrentState = EXTENDED;
 	}
 
@@ -100,7 +102,7 @@ public class ClimbSubsystem extends Subsystem {
 	 * Open the back pistonss
 	 */
 	public void openBack() {
-		this.backPiston.set(EXTENDED);
+		this.panelSidePiston.set(Value.kForward);
 		backCurrentState = EXTENDED;
 	}
 
@@ -109,7 +111,7 @@ public class ClimbSubsystem extends Subsystem {
 	 */
 	public void toggleFront() {
 		frontCurrentState = !frontCurrentState;
-		frontPiston.set(frontCurrentState);
+		clawSidePiston.set(frontCurrentState ? Value.kForward : Value.kReverse);
 	}
 
 	/**
@@ -117,7 +119,7 @@ public class ClimbSubsystem extends Subsystem {
 	 */
 	public void toggleBack() {
 		backCurrentState = !backCurrentState;
-		backPiston.set(backCurrentState);
+		panelSidePiston.set(backCurrentState ? Value.kForward : Value.kOff);
 	}
 
 	/**
@@ -145,8 +147,8 @@ public class ClimbSubsystem extends Subsystem {
 	 * Output telemetry based on the pistons current state
 	 */
 	public void outputTelemetry() {
-		SmartDashboard.putBoolean("front", frontPiston.get());
-		SmartDashboard.putBoolean("back", backPiston.get());
+		SmartDashboard.putBoolean("C_ClawSide", clawSidePiston.get() == Value.kForward);
+		SmartDashboard.putBoolean("C_PanelSide", panelSidePiston.get() == Value.kForward);
 	}
 
 }
