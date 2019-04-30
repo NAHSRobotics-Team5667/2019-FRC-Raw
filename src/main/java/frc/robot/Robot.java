@@ -8,11 +8,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PWMTalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -20,10 +18,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.factories.MecanumDriveFactory;
 import frc.robot.subsystems.BallSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
-import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.CompressorSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.LiftSubsystem;
+import frc.robot.subsystems.LiftSubsystemPID;
 import frc.robot.subsystems.LimeLightSubsystem;
 import frc.robot.subsystems.MultiCameraSubsystem;
 import frc.robot.subsystems.NavXSubsystem;
@@ -55,7 +53,7 @@ public class Robot extends TimedRobot {
 
     public static LimeLightSubsystem LimeLight;
 
-    public static ClimbSubsystem Climb;
+    public static LiftSubsystemPID LiftPID;
 
     Command m_autonomousCommand;
     SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -83,7 +81,12 @@ public class Robot extends TimedRobot {
         Vision = new MultiCameraSubsystem(RobotMap.DefaultCameraCount, RobotMap.DefaultCameraPort);
         LimeLight = new LimeLightSubsystem();
 
-        Climb = new ClimbSubsystem(new DoubleSolenoid(2, 3), new DoubleSolenoid(6, 4), new Talon(RobotMap.climbPort));
+        // LiftPID = new LiftSubsystemPID(new PWMTalonSRX(RobotMap.SlidePort),
+        // new Encoder(RobotMap.EncoderPortA, RobotMap.EncoderPortB));
+
+        // Climb = new ClimbSubsystem(new Solenoid(RobotMap.ClimbSolenoid1), new
+        // Solenoid(RobotMap.ClimbSolenoid2),
+        // new Talon(RobotMap.climbPort));
     }
 
     /**
