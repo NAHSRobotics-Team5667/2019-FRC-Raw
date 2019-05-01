@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import frc.robot.commands.LiftCommand;
+import frc.robot.commands.LiftCommandPID;
 
 /**
  * The lift subsystem
@@ -33,16 +34,20 @@ public class LiftSubsystem extends Subsystem {
 	// Are we in auto-lift?
 	private boolean inAuto = false;
 	// The linear slide anti-gravity value
-	private final double ANTI_GRAV = -.09;
+	private final double ANTI_GRAV = .09;
 
 	private final int MAX_HEIGHT_ENCODER = 110000000;
 
 	private final DigitalInput limitSwitch;
 
+	private double pulleyCircumference = .102;
+	private double gearRatio = 64;
+	private double pulsesPerRevolution = 1024;
+
 	@Override
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
-		setDefaultCommand(new LiftCommand());
+		setDefaultCommand(new LiftCommandPID());
 	}
 
 	/**
@@ -72,6 +77,16 @@ public class LiftSubsystem extends Subsystem {
 	 */
 	public void slideDown() {
 		this.slide.set(slideSpeedDown);
+	}
+
+	/**
+	 * Move the linear slide based on the speed passed in
+	 * 
+	 * @param speed - The speed
+	 */
+
+	public void slide(double speed) {
+		this.slide.set(speed);
 	}
 
 	/**
@@ -142,8 +157,8 @@ public class LiftSubsystem extends Subsystem {
 	/**
 	 * The linear slide anti-gravity shoutout to ajay who wrote this
 	 */
-	public void setAntiGrav() {
-		this.slide.set(ANTI_GRAV);
+	public void setAntiGrav(boolean val) {
+		this.slide.set(val ? ANTI_GRAV : 0);
 	}
 
 	/**
@@ -169,13 +184,18 @@ public class LiftSubsystem extends Subsystem {
 		return this.limitSwitch.get();
 	}
 
+	public double getHeight() {
+		// currentEncoderPulses / (pulesesPerRevolution * gear ratio) *
+		// circumferenceOfPulley
+		return (this.getRotations() / (pulsesPerRevolution * gearRatio)) * pulleyCircumference;
+	}
+
 	/**
 	 * Output information to the driver graphically
 	 */
 	public void outputTelemetry() {
 		SmartDashboard.putNumber("Robot Level", getLevel());
 		SmartDashboard.putNumber("Encoder Rotations", getRotations());
-		SmartDashboard.putBoolean("LimitSwitch", getSwitchValue());
-
+		SmartDashboard.putNumber("Lift height", getHeight());
 	}
 }

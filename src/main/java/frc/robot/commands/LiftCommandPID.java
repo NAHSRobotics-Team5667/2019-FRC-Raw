@@ -11,28 +11,23 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.robot.PIDControllers.PIDController;
 
 public class LiftCommandPID extends Command {
 	private boolean isGoingUp = false;
 	private int target;
-	private PIDController liftPID = new PIDController("l", 0, 0, 0);
+
+	private double kP = 2;
 
 	public LiftCommandPID() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
-		requires(Robot.LiftPID);
-		liftPID.setOutputRange(-0.7, 1);
-		liftPID.setInputRange(0, 910000);
-		liftPID.setTolerance(0);
-		liftPID.setSetpoint(0);
-
-		liftPID.outputTelemetry();
+		requires(Robot.Lift);
 	}
 
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
+		SmartDashboard.putNumber("kP", kP);
 
 	}
 
@@ -41,63 +36,64 @@ public class LiftCommandPID extends Command {
 	protected void execute() {
 
 		if (Robot.m_oi.getController().getXButtonPressed()) {
-			Robot.LiftPID.resetEncoder();
+			Robot.Lift.resetEncoder();
 		}
 
 		if (Robot.m_oi.getController().getRightTrigger() != 0) {
-			Robot.LiftPID.setAuto(false);
-			Robot.LiftPID.slide(1);
+			Robot.Lift.setAuto(false);
+			Robot.Lift.slide(1);
 			isGoingUp = true;
 
 		} else if (Robot.m_oi.getController().getLeftTrigger() != 0) {
-			Robot.LiftPID.setAuto(false);
-			Robot.LiftPID.slide(-.7);
+			Robot.Lift.setAuto(false);
+			Robot.Lift.slide(-.7);
 			isGoingUp = false;
 
-		} else if (Robot.m_oi.getController().getRightBumper() && !Robot.LiftPID.isAuto()) {
-			Robot.LiftPID.setAuto(true);
+		} else if (Robot.m_oi.getController().getRightBumper()) {
+			Robot.Lift.setAuto(true);
 			isGoingUp = true;
-			target = Robot.LiftPID.increaseLevel();
+			target = Robot.Lift.increaseLevel();
 
 		} else if (Robot.m_oi.getController().getLeftBumper()) {
-			Robot.LiftPID.setAuto(true);
+			Robot.Lift.setAuto(true);
 			isGoingUp = false;
-			target = Robot.LiftPID.decreaseLevel();
+			target = Robot.Lift.decreaseLevel();
 
 		} else {
-			if (!Robot.LiftPID.isAuto())
-				Robot.LiftPID.stop();
+			if (!Robot.Lift.isAuto()) {
+				Robot.Lift.stop();
+			}
 		}
 
-		if (Robot.LiftPID.isAuto()) {
-			liftPID.setTolerance(RobotMap.Levels[target]);
-			double speed;
-			if (isGoingUp && Robot.LiftPID.getRotations() < RobotMap.Levels[target]) {
-				speed = -liftPID.calculate(Robot.LiftPID.getRotations());
-				System.out.println("Should be going up: " + speed);
-				Robot.LiftPID.slide(speed);
-			} else if (!isGoingUp && Robot.LiftPID.getRotations() > RobotMap.Levels[target]) {
-				speed = liftPID.calculate(Robot.LiftPID.getRotations());
-				System.out.println("Should be going down: " + speed);
-				Robot.LiftPID.slide(speed);
-			}
-			if (isGoingUp && Robot.LiftPID.getRotations() - RobotMap.Levels[target] >= 0) {
-				Robot.LiftPID.stop();
-				Robot.LiftPID.setAuto(false);
-				System.out.println("END AUTO");
-			} else if (!isGoingUp && Robot.LiftPID.getRotations() - RobotMap.Levels[target] <= 0) {
-				Robot.LiftPID.stop();
-				Robot.LiftPID.setAuto(false);
-				System.out.println("END AUTO");
+		if (Robot.Lift.isAuto()) {
+			double speed = (isGoingUp ? .1 : -.1) + ((RobotMap.Levels[target] - Robot.Lift.getHeight()) * kP);
+			Robot.Lift.slide(speed);
+			// if (isGoingUp && Robot.Lift.getHeight() < RobotMap.Levels[target]) {
+			// speed = (RobotMap.Levels[target]);
+			// System.out.println("Should be going up: " + speed);
+			// Robot.Lift.slide(speed);
+
+			// } else if (!isGoingUp && Robot.Lift.getHeight() > RobotMap.Levels[target]) {
+			// speed = 0;
+			// System.out.println("Should be going down: " + speed);
+			// Robot.Lift.slide(speed);
+			// }
+
+			if (isGoingUp && Robot.Lift.getHeight() - RobotMap.Levels[target] >= 0) {
+				Robot.Lift.stop();
+				Robot.Lift.setAuto(false);
+			} else if (!isGoingUp && Robot.Lift.getHeight() - RobotMap.Levels[target] <= 0) {
+				Robot.Lift.stop();
+				Robot.Lift.setAuto(false);
 
 			}
+			SmartDashboard.putNumber("Slide Speed", speed);
+
 		}
 
 		SmartDashboard.putNumber("Target Level", target);
-		Robot.LiftPID.outputDebug();
-		Robot.LiftPID.outputTelemetry();
-		liftPID.readTelemetry();
-		System.out.println(liftPID.getP() + ", " + liftPID.getI() + ", " + liftPID.getD());
+		kP = SmartDashboard.getNumber("kP", kP);
+		Robot.Lift.outputTelemetry();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -109,7 +105,7 @@ public class LiftCommandPID extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.LiftPID.stop();
+		Robot.Lift.stop();
 	}
 
 	// Called when another command which requires one or more of the same
