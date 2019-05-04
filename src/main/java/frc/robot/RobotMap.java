@@ -61,7 +61,7 @@ public class RobotMap {
     // public static int[] Levels = { 0, 137500, 265300 };
 
     // Levels in meters
-    public static double[] Levels = { 0, 1.06, 2 };
+    public static double[] Levels = { 0, 1.0, 1.52 };
 
     // Sticks
     public static int sRightX_Port = 4; // Right stick x

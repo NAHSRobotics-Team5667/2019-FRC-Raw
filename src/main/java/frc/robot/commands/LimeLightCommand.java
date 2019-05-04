@@ -20,22 +20,24 @@ import frc.robot.Robot;
  */
 public class LimeLightCommand extends Command {
 
-	PIDController distanceController = new PIDController("Dis", 0.1);
+	PIDController distanceController = new PIDController("Dis", 0.01);
 	PIDController strafingController = new PIDController("Str", 0.1, 0.001);
-	PIDController rotationController = new PIDController("Rot", 0.009);
+	PIDController rotationController = new PIDController("Rot", 0.001);
+
 	private boolean manualLight = false;
 
 	public LimeLightCommand() {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.LimeLight);
+		Robot.LimeLight.turnLightOff();
 	}
 
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		distanceController.setOutputRange(-0.2, 0.2);
-		strafingController.setOutputRange(-0.2, 0.2);
-		rotationController.setOutputRange(-0.2, 0.2);
+		distanceController.setOutputRange(-0.3, 0.3);
+		strafingController.setOutputRange(-0.3, 0.3);
+		rotationController.setOutputRange(-0.3, 0.3);
 
 		distanceController.setInputRange(-20.5, 20.5);
 		strafingController.setInputRange(-27, 27);
@@ -49,6 +51,9 @@ public class LimeLightCommand extends Command {
 		strafingController.setSetpoint(0);
 		rotationController.setSetpoint(0);
 
+		distanceController.outputTelemetry();
+		strafingController.outputTelemetry();
+		rotationController.outputTelemetry();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -58,8 +63,15 @@ public class LimeLightCommand extends Command {
 
 		if (Robot.m_oi.getController().getYButton()) {
 			Robot.LimeLight.isAutoAligning = true;
+			Robot.LimeLight.turnLightOn();
 		} else {
 			Robot.LimeLight.isAutoAligning = false;
+			if (Robot.m_oi.getController().getDPad() == 270) {
+				Robot.LimeLight.turnLightOn();
+			} else {
+				Robot.LimeLight.turnLightOff();
+
+			}
 		}
 
 		if (Robot.LimeLight.isAutoAligning) {
@@ -79,9 +91,15 @@ public class LimeLightCommand extends Command {
 
 				// Strafe to the indicated position
 				Robot.DriveTrain.drive(strafingSpeed, distanceSpeed, rotationSpeed);
+
 			}
 		}
 
+		distanceController.readTelemetry();
+
+		strafingController.readTelemetry();
+
+		rotationController.readTelemetry();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -94,6 +112,7 @@ public class LimeLightCommand extends Command {
 	@Override
 	protected void end() {
 		Robot.LimeLight.isAutoAligning = false;
+		Robot.LimeLight.turnLightOff();
 	}
 
 	// Called when another command which requires one or more of the same

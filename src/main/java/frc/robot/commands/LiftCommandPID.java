@@ -17,6 +17,8 @@ public class LiftCommandPID extends Command {
 	private int target;
 
 	private double kP = 2;
+	private double kF = .1;
+	private double kFDown = .07;
 
 	public LiftCommandPID() {
 		// Use requires() here to declare subsystem dependencies
@@ -28,6 +30,7 @@ public class LiftCommandPID extends Command {
 	@Override
 	protected void initialize() {
 		SmartDashboard.putNumber("kP", kP);
+		SmartDashboard.putNumber("kF", kF);
 
 	}
 
@@ -66,7 +69,7 @@ public class LiftCommandPID extends Command {
 		}
 
 		if (Robot.Lift.isAuto()) {
-			double speed = (isGoingUp ? .1 : -.1) + ((RobotMap.Levels[target] - Robot.Lift.getHeight()) * kP);
+			double speed = (isGoingUp ? kF : -kFDown) + ((RobotMap.Levels[target] - Robot.Lift.getHeight()) * kP);
 			Robot.Lift.slide(speed);
 			// if (isGoingUp && Robot.Lift.getHeight() < RobotMap.Levels[target]) {
 			// speed = (RobotMap.Levels[target]);
@@ -79,20 +82,22 @@ public class LiftCommandPID extends Command {
 			// Robot.Lift.slide(speed);
 			// }
 
-			if (isGoingUp && Robot.Lift.getHeight() - RobotMap.Levels[target] >= 0) {
-				Robot.Lift.stop();
-				Robot.Lift.setAuto(false);
-			} else if (!isGoingUp && Robot.Lift.getHeight() - RobotMap.Levels[target] <= 0) {
-				Robot.Lift.stop();
-				Robot.Lift.setAuto(false);
+			// if (isGoingUp && Robot.Lift.getHeight() - RobotMap.Levels[target] >= 0) {
+			// Robot.Lift.stop();
+			// Robot.Lift.setAuto(false);
+			// } else if (!isGoingUp && Robot.Lift.getHeight() - RobotMap.Levels[target] <=
+			// 0) {
+			// Robot.Lift.stop();
+			// Robot.Lift.setAuto(false);
 
-			}
+			// }
 			SmartDashboard.putNumber("Slide Speed", speed);
 
 		}
 
 		SmartDashboard.putNumber("Target Level", target);
 		kP = SmartDashboard.getNumber("kP", kP);
+		SmartDashboard.getNumber("kF", kF);
 		Robot.Lift.outputTelemetry();
 	}
 

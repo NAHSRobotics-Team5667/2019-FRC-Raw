@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.PWMTalonSRX;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.commands.DriveTrainCommand;
@@ -16,10 +17,10 @@ import frc.robot.factories.MecanumDriveFactory;
 public class DriveTrainSubsystem extends Subsystem {
 
     // Declare our motors
-    private PWMTalonSRX r1;
-    private PWMTalonSRX r2;
-    private PWMTalonSRX l1;
-    private PWMTalonSRX l2;
+    private Spark r1;
+    private Spark r2;
+    private Spark l1;
+    private Spark l2;
     private MecanumDrive mecDrive;
 
     /**
@@ -30,8 +31,7 @@ public class DriveTrainSubsystem extends Subsystem {
      * @param l1 Dependency injection for future mocking in JUnit tests
      * @param l2 Dependency injection for future mocking in JUnit tests
      */
-    public DriveTrainSubsystem(PWMTalonSRX r1, PWMTalonSRX r2, PWMTalonSRX l1, PWMTalonSRX l2,
-            MecanumDriveFactory factory) {
+    public DriveTrainSubsystem(Spark r1, Spark r2, Spark l1, Spark l2, MecanumDriveFactory factory) {
         this.r1 = r1;
         this.r2 = r2;
         this.l1 = l1;

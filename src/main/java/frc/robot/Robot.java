@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PWMTalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -63,8 +64,8 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         m_oi = new OI(RobotMap.controllerPort);
 
-        DriveTrain = new DriveTrainSubsystem(new PWMTalonSRX(RobotMap.r1Port), new PWMTalonSRX(RobotMap.r2Port),
-                new PWMTalonSRX(RobotMap.l1Port), new PWMTalonSRX(RobotMap.l2Port), new MecanumDriveFactory());
+        DriveTrain = new DriveTrainSubsystem(new Spark(RobotMap.r1Port), new Spark(RobotMap.r2Port),
+                new Spark(RobotMap.l1Port), new Spark(RobotMap.l2Port), new MecanumDriveFactory());
 
         Compressor = new CompressorSubsystem();
 
