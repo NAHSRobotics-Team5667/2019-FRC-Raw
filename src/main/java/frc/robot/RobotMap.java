@@ -41,7 +41,7 @@ public class RobotMap {
     public static int l1Port = 2; // Left motor port
     public static int l2Port = 3; // Left 2 motor port
     // - Climb motor
-    public static int climbPort = 6; // The climb motor
+    public static int climbPort = 5; // The climb motor
 
     public static int LimitSwitchPort = 0;
 
@@ -61,7 +61,7 @@ public class RobotMap {
     // public static int[] Levels = { 0, 137500, 265300 };
 
     // Levels in meters
-    public static double[] Levels = { 0, 1.0, 1.52 };
+    public static double[] Levels = { .15, .95, 1.45 };
 
     // Sticks
     public static int sRightX_Port = 4; // Right stick x

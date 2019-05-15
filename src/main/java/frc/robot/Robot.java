@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.factories.MecanumDriveFactory;
 import frc.robot.subsystems.BallSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
+import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.CompressorSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.LiftSubsystem;
@@ -53,6 +54,8 @@ public class Robot extends TimedRobot {
 
     public static LimeLightSubsystem LimeLight;
 
+    public static ClimbSubsystem Climb;
+
     Command m_autonomousCommand;
     SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -75,6 +78,8 @@ public class Robot extends TimedRobot {
         Claw = new ClawSubsystem(new Solenoid(RobotMap.ClawSolenoidPort));
 
         BallIntake = new BallSubsystem(new Solenoid(RobotMap.BallPiston));
+
+        Climb = new ClimbSubsystem(new PWMTalonSRX(RobotMap.climbPort));
 
         Vision = new MultiCameraSubsystem(RobotMap.DefaultCameraCount, RobotMap.DefaultCameraPort);
         LimeLight = new LimeLightSubsystem();

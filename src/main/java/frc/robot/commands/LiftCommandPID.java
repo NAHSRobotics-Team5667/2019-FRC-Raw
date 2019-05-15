@@ -16,9 +16,9 @@ public class LiftCommandPID extends Command {
 	private boolean isGoingUp = false;
 	private int target;
 
-	private double kP = 2;
+	private double kP = 3.5;
 	private double kF = .1;
-	private double kFDown = .07;
+	private double kFDown = .02;
 
 	public LiftCommandPID() {
 		// Use requires() here to declare subsystem dependencies

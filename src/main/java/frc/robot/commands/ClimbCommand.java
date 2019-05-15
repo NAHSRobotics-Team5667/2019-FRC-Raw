@@ -1,80 +1,56 @@
-// /*----------------------------------------------------------------------------*/
-// /* Copyright (c) 2018 FIRST. All Rights Reserved. */
-// /* Open Source Software - may be modified and shared by FRC teams. The code
-// */
-// /* must be accompanied by the FIRST BSD license file in the root directory of
-// */
-// /* the project. */
-// /*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
 
-// package frc.robot.commands;
+package frc.robot.commands;
 
-// import edu.wpi.first.wpilibj.command.Command;
-// import frc.robot.Robot;
+import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
 
-// public class ClimbCommand extends Command {
-// public ClimbCommand() {
-// // Use requires() here to declare subsystem dependencies
-// // eg. requires(chassis);
-// requires(Robot.Climb);
-// }
+public class ClimbCommand extends Command {
 
-// // Called just before this Command runs the first time
-// @Override
-// protected void initialize() {
-// Robot.Climb.closePistons();
-// }
+  private double speed = 1;
 
-// // Called repeatedly when this Command is scheduled to run
-// @Override
-// protected void execute() {
-// // Toggle the front pistons
-// if (Robot.m_oi.getController().getStartButtonPressed()) {
-// Robot.Climb.toggleBack();
-// }
+  public ClimbCommand() {
+    // Use requires() here to declare subsystem dependencies
+    requires(Robot.Climb);
+  }
 
-// // Toggle the back pistons
-// if (Robot.m_oi.getController().getBackButtonPressed()) {
-// Robot.Climb.toggleFront();
-// }
+  // Called just before this Command runs the first time
+  @Override
+  protected void initialize() {
+    Robot.Climb.stop();
+  }
 
-// // Open both pistons
-// if (Robot.m_oi.getController().getDPad() == 270) {
-// Robot.Climb.openPistons();
-// }
+  // Called repeatedly when this Command is scheduled to run
+  @Override
+  protected void execute() {
+    if (Robot.m_oi.getController().getDPad() == 0) {
+      Robot.Climb.driveMotor(speed);
+    } else if (Robot.m_oi.getController().getDPad() == 180) {
+      Robot.Climb.driveMotor(-speed);
+    } else {
+      Robot.Climb.stop();
+    }
+  }
 
-// // Drive the robot towards the hab (climb)
-// if (Robot.m_oi.getController().getDPad() == 0) {
-// Robot.Climb.driveMotorFoward();
+  // Make this return true when this Command no longer needs to run execute()
+  @Override
+  protected boolean isFinished() {
+    return false;
+  }
 
-// } else if (Robot.m_oi.getController().getDPad() == 180) {
-// Robot.Climb.driveMotorBackward();
-// } else {
-// Robot.Climb.stopMotor();
-// }
+  // Called once after isFinished returns true
+  @Override
+  protected void end() {
+  }
 
-// // Drive the motor away from the hab (stop climb)
-
-// Robot.Climb.outputTelemetry();
-
-// }
-
-// // Make this return true when this Command no longer needs to run execute()
-// @Override
-// protected boolean isFinished() {
-// return false;
-// }
-
-// // Called once after isFinished returns true
-// @Override
-// protected void end() {
-// Robot.Climb.closePistons();
-// }
-
-// // Called when another command which requires one or more of the same
-// // subsystems is scheduled to run
-// @Override
-// protected void interrupted() {
-// end();
-// }
-// }
+  // Called when another command which requires one or more of the same
+  // subsystems is scheduled to run
+  @Override
+  protected void interrupted() {
+  }
+}
